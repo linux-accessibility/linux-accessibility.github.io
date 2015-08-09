@@ -1,0 +1,455 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Screen Readers and Self-Voicing Application Extensions for Linux</title>
+    <meta name="author" content="Jason J.G. White">
+    <meta name="description" content="Overview of screen readers and
+				      self-voicing extensions for Linux.">
+    <meta name="keywords" content="screen readers,assistive
+				   technology,linux,speech,braille,graphical
+				   user interface,gui,speech enabling">
+    <meta charset="UTF-8">
+  </head>
+<body>
+<h1>Screen Readers and Self-Voicing Application Extensions for Linux</h1>
+<h2>Jason J.G. White</h2>
+<h2>Preliminaries</h2>
+<p>This document briefly describes the screen readers and self-voicing
+  application extensions available in the Linux environment. It serves
+  as a central starting point from which interested users, system
+  administrators and software developers can explore further. I make
+  no attempt here to assess any of the software mentioned. My
+  criterion for inclusion is that each program has acquired a
+  sustained community of users who are blind or vision-impaired, and
+  that it continues to be the focus of development efforts. Projects
+  which are no longer maintained or which have not gained substantial
+  support within the user community are not included.
+<p>A second purpose of this publication is to orient the reader to
+  speech and braille access under Linux. There are features which
+  distinguish Linux, as a member of the UNIX family of operating
+  systems, from other environments for which assistive technologies
+  have emerged - principally, a highly capable textual interface
+  relevant to all aspects of the system, together with diversity and
+  freedom of choice in the selection of components at many levels.
+  Challenges and opportunities for further development are identified,
+  particularly in relation to graphical user interfaces, but
+  speculation is kept to a minimum.
+<p>I welcome your comments and suggestions for improvement. Please
+  direct any correspondence to <a href="mailto:jason@jasonjgw.net">jason@jasonjgw.net</a>.
+<h3>Audience</h3>
+<p>This material is intended to be read by users, system
+  administrators, software developers and other interested parties.
+  Familiarity with the Linux operating system, but not with assistive
+  technologies used by people with disabilities, is assumed. Only a
+  cursory explanation of the latter is offered, however, and
+  interested readers are invited to investigate assistive technologies
+  further by examining the capabilities of the software packages
+  described here, and by searching the Web for relevant materials.
+<h3>Terminology</h3>
+<p>By a <em>screen reader</em> I mean a program designed to enable a
+  user with a disability to interact with the operating system and its
+  applications via synthetic speech or a refreshable braille display.
+<p>What is distinctive of a screen reader is that it retrieves
+  information from the operating system about the user interface
+  presented on screen. It may also intercept the user's keystrokes to
+  provide feedback and to establish keyboard commands specific to the
+  screen reader which facilitate interaction, for example by enabling
+  screen contents to be reviewed interactively. The screen reader then
+  presents a braille or spoken user interface with which the user
+  interacts with the underlying system or application software.
+<p>Note: a refreshable braille display is a tactile device supporting
+  an array of plastic pins that can be raised above a reading surface
+  under the control of the host computer to form braille dot patterns.
+  These patterns, typically comprising a single line of text, can then
+  be read by the user. Braille displays also provide buttons, switches
+  and other controls (depending on the design of the individual
+  product) with which the user can <q>navigate</q> the contents of a
+  screen or window. Some models also include a braille keyboard,
+  allowing text to be typed directly in braille.
+  <p>By a <em>self-voicing application extension</em> I mean an
+  extension to a Web browser, editor or other application that
+  constructs a speech-based interface with which the user can
+  interact. Self-voicing extensions differ from screen readers in that
+  they have access to high-level data and functionality of the
+  application which is customized; they do not operate within the user
+  interface layer of the underlying system. As a result, they
+  typically offer richer speech interfaces than screen readers, while
+  taking advantage of auditory icons and distinctive voice
+  characteristics to enhance the efficiency of interactions.
+    <p>By <em>Linux</em> I mean any GNU/Linux distribution. Much of
+    the software described below can be run on other UNIX-like
+    operating systems as well. On the other hand, most of the software
+    discussed is not supported by operating systems based on the
+    Linux kernel that differ substantially from GNU/Linux
+    distributions, for example Android. In general, distributions
+    intended to be installed in embedded systems are beyond the scope
+    of this review.
+<h2>User Interface Paradigms and Accessibility</h2>
+<p>Fundamentally, Linux supports two broad types of user interface:
+  some programs operate in a terminal, for example a virtual console
+  or pseudo-terminal, whereas others run in a graphical environment
+  provided by a display server. Certain programs can operate equally
+  in both environments. For example, GNU Emacs
+  (<a href="#emacspeak">see below</a>) can be run either in a terminal
+  or as a graphical desktop application. In general however, it is
+  best to classify user interfaces under Linux as either graphical or
+  terminal-oriented, then to consider the accessibility of the
+  operating system and application software from this point of view.
+<p>As can be seen in the descriptions below, most screen readers for
+  Linux operate in a terminal; they are therefore intended to make
+  terminal-oriented system utilities and applications accessible.
+  Since a wide variety of computing tasks can be carried out within
+  the terminal environment, which, moreover, offers powerful and
+  flexible tools unmatched by graphical user interfaces, providing
+  access to the terminal is enough to enable a user to perform many
+  functions and to do so efficiently.
+  <p>In parallel with command line tools and terminal-oriented
+  applications, Linux offers a rich and diverse heritage of graphical
+  user interfaces, together with a variety of desktop environments.
+  Access to these interfaces allows a user to perform tasks that cannot be
+  undertaken, or which it would be inconvenient to complete, using
+  terminal-based software. Since the construction of assistive
+  technologies capable of yielding a speech or braille interface to
+  the terminal is essentially a solved problem, the focus of effort
+  has largely shifted to making graphical applications and desktop
+  environments accessible. This is not to suggest that
+  terminal-oriented screen readers are no longer under development; to
+  the contrary, they continue to be fine-tuned. The point, rather, is that
+  the most complex challenges for accessibility in the Linux
+  environment, as indeed in computing generally, are related to graphical user interfaces.
+<p>Though terminal applications are generally amenable to non-visual
+  access, there are certain practices, such as the use of highlight
+  bars rather than the system's cursor, which can create difficulties.
+  Such problems have usually been solved within applications
+  themselves rather than in the assistive technologies, for example by
+  providing a <q>show cursor</q> option which ensures that the
+  location of the system's cursor is updated appropriately. This
+  feature can be found, for example,
+  in <a href="http://lynx.isc.org/">Lynx</a>
+  and <a href="http://sourceforge.net/projects/re-alpine/">Alpine</a>.
+  (The latter additionally offers a <q>single column folder list</q>
+  option convenient to users of text-to-speech screen readers.)
+  Similarly, the <a href="http://www.mutt.org/">Mutt e-mail client</a>
+  provides a <q>braille friendly</q> option to enhance accessibility
+  by placing the cursor on the first line of text whenever the body of
+  a message is displayed.
+<p>Since most terminal-based software available for Linux is very
+  accessible to screen reader users, including almost all command line
+  programs, it would be superfluous to provide a list of accessible
+  applications here.
+<h3>Access to Graphical User Interfaces</h3>
+<p>Historically, two technical approaches have been developed to make
+  graphical user interfaces accessible to users of screen readers.
+  Both techniques are intended to solve the problem of obtaining the
+  necessary information from the operating system and applications
+  with which to build a braille or spoken interface. Unlike a
+  terminal, consisting essentially of a rectangular array of
+  characters that a screen reader can easily interrogate, a graphical
+  interface is a composite of text (in various fonts) and images (such
+  as icons) drawn on the screen. The primary means of input is a
+  pointing device, typically a mouse or a touch-sensitive display. The
+  difficulty for a screen reader, accordingly, is to collect details
+  of the graphical interface from which to construct a spoken or
+  braille rendering with which the user can interact.
+<p>The first approach to be developed involves constructing a
+  so-called <q>off-screen model</q>, a database describing the
+  graphical interface derived by intercepting low-level functions of
+  the operating system, for instance graphics and font rendering,
+  window operations and so forth. This technique has proven to be
+  difficult to implement reliably and unsuitable for providing
+  higher-level information, such as the logical structure of a
+  document, needed for effective non-visual interaction. For these and
+  other reasons, research and software development efforts in
+  accessibility now concentrate on the deployment of accessibility
+  APIs (application programming interfaces), which are widely regarded
+  as a superior alternative to off-screen models. Indeed, under Linux,
+  access is provided exclusively by accessibility APIs; off-screen
+  models have never been used. In this respect, Linux is similar to
+  most contemporary operating systems: off-screen models are to be
+  found only in assistive technologies originally developed prior to
+  the widespread use of accessibility APIs.
+<p>Thus the second, and most widely implemented, strategy is to design
+  an accessibility API, a programmatic mechanism which makes available
+  the role, state and content of each component of the user interface
+  to a screen reader or other assistive technology. The API provides
+  functions with which user interface components of different types,
+  such as text input fields, check boxes and menus, can be disclosed
+  to assistive technologies. As will be emphasized
+  in <a href="#orca">the discussion of Orca below</a>, in order to be
+  effective, such an API must be implemented correctly in custom user
+  interface components provided by applications as well as in
+  libraries of UI components used by system and application software.
+  Since the API is the exclusive means by which Orca and other
+  assistive technologies access the graphical interface, programs that
+  do not implement it are inaccessible.
+<p>Graphical interfaces under Linux are characterized by diversity. No
+  single UI library or desktop environment has ever been dominant, and
+  there are signs that patterns of cooperation and competition among
+  developers, software projects and vendors are likely to intensify
+  the tendency toward diversity. While affording more options to users
+  and system administrators, the plurality of UI libraries, desktop
+  environments and applications presents a challenge for developers of
+  assistive technologies: there is no system-wide library of UI
+  components, nor a dominant suite of applications, on which to focus
+  attention.
+<p>In the description of Orca, I give a non-exhaustive list of UI
+  libraries, desktop environments and applications that support the
+  accessibility API. The adequacy of this support varies greatly, and
+  obviously the details even with respect to a single component change
+  as bugs are fixed and regressions introduced. For this reason, I do
+  not evaluate the accessibility of individual desktop environments
+  and applications here. Widely used applications with well-resourced
+  communities of developers are typically the most successful in
+  implementing support for accessibility.
+<p>The general trend, however, is toward greater accessibility and
+  improved quality of implementation. This can be seen in the extent
+  to which bugs reported by users and developers are corrected, and
+  in ongoing efforts to enhance accessibility across a range of
+  desktop environments and applications. Complex applications such as
+  Web browsers and office suites have also implemented the
+  accessibility APIs of several operating systems. This is typically
+  done by creating an accessibility API internal to the application,
+  which is then mapped to the accessibility API of each supported
+  operating system. Accessibility-related improvements within the
+  application can thus benefit users of all supported platforms.
+<h3>Self-Voicing Extensions</h3>
+<p>As noted in the overview, a self-voicing extension is not a screen
+  reader: it resides within an underlying application and provides a
+  spoken interface directly. The writing of self-voicing extensions is
+  well suited to applications which serve also as platforms on which
+  further applications can be written in an extension language. For
+  example, a Web browser is such an environment, capable of executing
+  Web applications written in a combination of HTML, CSS and
+  Javascript. Correspondingly, Emacs, itself largely written in Lisp,
+  is host to numerous extensions (see <a href="#emacspeak">the
+  discussion of Emacspeak below</a>).
+<p>The advantage of self-voicing tools is that they have access
+  to all of the facilities available to extensions of the application
+  with which to construct an effective spoken interface. They are not
+  confined to information and functionality exposed by an
+  accessibility API. Although speech-based tools have so far been the
+  subject of extension development, it would be possible to create
+  self-brailling extensions and likewise other types of assistive
+  technology along similar lines.
+<p>If a system is composed of several layers, where each successive
+  layer serves as a platform for the development of applications in
+  the layer above it, then the question emerges as to where in the
+  hierarchy any given assistive technology should be written.
+  Self-voicing applications are the result of pushing assistive
+  technology development up the hierarchy, for example from the
+  operating system to the Web browser. The potential of this strategy
+  is yet to be fully realized. Its benefits, on the other hand, are
+  demonstrable, as ChromeVox and Emacspeak show.
+  <h2>Software Summary</h2>
+<h3>Overview and Availability</h3>
+  <p>This section summarizes each of the software projects in turn,
+  ordered alphabetically. Most of the tools discussed here can be
+  obtained from widely used Linux distributions such
+  as <a href="http://www.archlinux.org/">Arch
+  Linux</a>, <a href="http://www.debian.org/">Debian</a>, <a href="http://www.fedoraproject.org/">Fedora</a>,
+  <a href="http://www.opensuse.org/">OpenSUSE</a>, <a href="http://www.ubuntu.com/">Ubuntu</a>
+  and their respective derivatives. There also exist special-purpose
+  distributions such as <a href="http://www.vinux.org.uk/">Vinux</a>
+  and <a href="www.sonar-project.org/">Sonar</a> intended to be used
+  by people who are blind or vision-impaired. These distributions
+  activate screen readers by default and may also carry additional
+  accessibility-related enhancements that have not propagated
+  to <q>upstream</q> software projects.
+<p>Note: several distributions can be installed independently by a
+  blind or vision-impaired user via speech or braille access software
+  activated early in the installation process. These distributions
+  include, notably, Arch Linux (via
+  a <a href="https://wiki.archlinux.org/index.php/Arch_Linux_for_the_blind">customized
+  installation image</a>), Debian
+  (see <a href="http://wiki.debian.org/DebianInstaller/Accessibility">this
+  wiki page</a>) and Ubuntu
+  (see <a href="https://help.ubuntu.com/community/Accessibility/doc/StartGuide">this
+  guide</a>). Some specialized distributions intended to be used
+  primarily by system administrators for recovery and maintenance
+  purposes also include access tools. A popular example
+  is <a href="http://www.grml.org/">Grml</a>
+  (see <a href="http://wiki.grml.org/doku.php?id=accessibility">this
+  page</a> for details).
+<p>For the most part, the screen readers and self-voicing extensions
+  enumerated here should be regarded as complementary rather than
+  competing projects. BRLTTY, for example, gives access to Linux
+  virtual consoles, but may also be invoked by Orca to extend this
+  access to graphical desktop environments. Although Speakup offers
+  access to terminal applications in general, and consequently may be
+  used with Emacs, a superior spoken interface can be experienced by
+  running Emacspeak. As these cases illustrate, each tool has its own
+  capabilities and strengths, knowledge of which empowers the user to
+  make the most of the Linux environment.
+<h3 id="brltty">BRLTTY</h3>
+<p>BRLTTY is a screen reader that provides braille access to Linux
+  virtual consoles. In conjunction with Orca (<a href="#orca">see below</a>) and an
+  included API, BRLTTY offers access to graphical desktop environments
+  as well. BRLTTY supports hardware from most refreshable braille
+  display manufacturers, including all of the best-known vendors of
+  such products. Drivers for the hardware are integrated into BRLTTY
+  itself, and an attached braille device can often be detected
+  automatically when BRLTTY is run. In this case, the operating system
+  becomes immediately accessible to the user without any prior
+  configuration of BRLTTY.
+<p>Serial, USB and Bluetooth interfaces may be used; see the
+  documentation for further explanations. BRLTTY offers contracted and
+  uncontracted braille in a variety of languages. Braille keyboards,
+  as incorporated into certain displays, can also be used for input.
+<p>BRLTTY Home
+  Page: <a href="http://mielke.cc/brltty/">http://mielke.cc/brltty/</a>
+<h3>ChromeVox</h3>
+<p>ChromeVox is a self-voicing extension to the Chrome
+  and <a href="http://www.chromium.org/">Chromium</a> Web browsers.
+  Under Linux, it can be used with any text to speech software
+  supported by <a href="http://devel.freebsoft.org/speechd">Speech
+  Dispatcher</a>. With ChromeVox, the user can navigate and interact
+  with Web sites via a sophisticated spoken interface. In effect, it
+  is an assistive technology implemented as an extension to a browser.
+  As of this writing, it is not packaged by any Linux distribution and
+  must therefore be installed separately from the operating system.
+<p>The Chromium Web browser is packaged by various Linux
+  distributions, including Arch Linux, Debian, Fedora (not yet in the
+  main repository) and Ubuntu. It provides a speech API through which
+  extensions written in Javascript, such as ChromeVox, can control
+  text to speech software available in the underlying operating
+  system. The API abstracts the details of how TTS systems are
+  accessed on each platform. In the case of Linux, this access is
+  achieved via Speech Dispatcher.
+<p>ChromeVox Home Page: <a href="code.google.com/p/google-axs-chrome/">http://code.google.com/p/google-axs-chrome/</a>
+<h3 id="emacspeak">Emacspeak</h3>
+<p>Emacspeak is a self-voicing extension
+  to <a href="http://www.gnu.org/software/emacs/">GNU Emacs</a>. It
+  supports both text to speech software and
+  hardware-based synthesizers attached via a serial interface. A
+  speech server for each synthesizer is included.
+<p>It is important to appreciate that, with its many extensions, Emacs
+  is much more than a text editor: among other functions, it can serve
+  for example as a calendar and diary, a calculator, an e-mail client,
+  a file manager, an IRC or XMPP client and a basic Web browser.
+  Moreover, it provides customized editing functionality for a wide
+  variety of document formats (including HTML, XML and LaTeX) and
+  programming languages (C, C++, Python, Perl, Ruby, Haskell, Lisp,
+  Bourne Shell and many more).
+<p>Emacspeak creates a highly customized speech interface for Emacs
+  and many of its extensions, taking advantage of the author's
+  research into speech and auditory interaction. Moreover, extensions
+  specific to Emacspeak are provided to carry out common desktop
+  computing tasks, such as searching the Web and reading electronic
+  books. In sum, Emacspeak aims to be a speech-based desktop
+  environment integrated into Emacs.
+<p>Emacspeak is packaged by several Linux distributions, including
+  Debian. However, as of this writing, these packages are not kept up
+  to date. Prospective users may prefer to download Emacspeak directly
+  from its project site. Many Emacspeak enthusiasts choose to run it
+  directly from a checked out copy of its Subversion repository,
+  downloaded to a suitable location under the user's home directory.
+  The documentation should be consulted for details regarding
+  installation and configuration.
+<ul>
+  <li>Emacspeak Home
+  Page: <a href="http://emacspeak.sf.net/">http://emacspeak.sf.net/</a>
+    <li>Emacspeak Subversion Repository: <code>svn checkout
+    http://emacspeak.googlecode.com/svn/trunk</code>
+</ul>
+  <h3 id="orca">Orca</h3>
+<p>Orca is a screen reader for graphical desktop environments, principally
+  <a href="http://www.gnome.org/">GNOME</a>. It has also been used,
+  with varying degrees of success and support,
+  under <a href="http://www.xfce.org/">Xfce</a> (version 4.10 and
+  later) and <a href="http://unity.ubuntu.com/">Ubuntu Unity</a>.
+  Officially, Orca is part of the GNOME project.
+<p>Orca provides non-visual access via both speech and braille
+  interaction. It can work with any text to speech software supported
+  by Speech Dispatcher and with any braille display supported by
+  BRLTTY (<a href="#brltty">described above</a>). Whereas earlier
+  versions of Orca also offered screen magnification, this
+  functionality is now supplied separately
+  by <a href="https://live.gnome.org/GnomeShell/Magnification">Gnome-Shell
+  Magnifier</a>.
+<p>In order to be compatible with Orca, desktop environments and
+  applications need to implement the GNOME Accessibility API. (The
+  <a href="https://developer.gnome.org/accessibility-devel-guide/">GNOME
+  Accessibility Developers Guide</a> should be read for an explanation
+  and examples of usage.) Moreover, it is important that the user be
+  able to interact with the user interface by means of a keyboard
+  alone, as discussed in
+  the <a href="https://developer.gnome.org/hig-book/stable/">GNOME
+  Human Interface Guidelines</a>. Thus, desktop environments and
+  applications which do not support the GNOME Accessibility API are
+  inaccessible to users with disabilities who require a screen reader.
+  Further, if the API is partially or incorrectly implemented by one
+  or more UI components, barriers to access are likely to arise. These
+  difficulties can range from inconveniences to obstacles that
+  entirely preclude the use of an application by screen reader users.
+<p>Well known applications supported by Orca
+  include <a href="http://www.mozilla.org/">Mozilla
+  Firefox</a>, <a href="https://www.mozilla.org/en-US/thunderbird/">Mozilla
+  Thunderbird,</a> <a href="http://www.libreoffice.org/">LibreOffice</a>,
+  <a href="http://www.pidgin.im">Pidgin</a>
+  and <a href="http://www.eclipse.org/">Eclipse</a>. The GNOME
+  Accessibility API, required by Orca, is implemented by popular UI
+  libraries such as <a href="http://www.gtk.org/">GTK+</a>,
+  <a href="http://qt-project.org/">Qt</a> (version 4.8 and later)
+  and <a href="http://www.clutter-project.org/">Clutter</a>. <a href="http://qt-project.org/doc/qt-4.8/accessible.html">this
+  overview</a> of the accessibility API implemented in Qt. Java
+  applications built with UI components that implement
+  the <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/access/jaapi.html">Java
+  Accessibility API</a> are supported. Support for the GNOME
+  Accessibility API is also available to Mono Common Language
+  Infrastructure (CLI) applications that implement User Interface
+  Automation; see
+  this <a href="http://www.mono-project.com/Accessibility:_Architecture">architectural
+  overview</a> for a description.
+<p>It should be noted that access to Java applications requires the
+  Java ATK Wrapper to be installed. This can be obtained from Linux
+  distribution repositories or directly from GNOME. Access to Qt 4.8
+  applications requires the AT-SPI Accessibility Plug-in for Qt to be
+  installed. As of version 5.0, this component has been integrated
+  into Qt and therefore no further installation is necessary.
+  Application authors should refer
+  to <a href="http://qt-project.org/doc/qt-4.8/accessible.html">this
+  documentation</a> for an overview of the Qt accessibility API.
+<p>Orca includes support for a variety of languages. Contracted
+  braille, for example English Grade II, is available.
+<p>Orca Home
+  Page: <a href="http://live.gnome.org/Orca">http://live.gnome.org/Orca/</a>
+<h3>Speakup</h3>
+<p>Speakup is a screen reader for Linux virtual consoles. It consists
+  of modules loaded into the Linux kernel. As such, Speakup can be
+  invoked early in the boot process. Thereafter, all interactions in
+  virtual consoles are accessible to the user.
+<p>Speakup is compatible with text to speech software such
+  as <a href="http://espeak.sourceforge.net/">Espeak</a> and with
+  other TTS systems supported by Speech Dispatcher. In addition,
+  Speakup can operate hardware-based speech synthesizers connected via
+  a serial interface. Speakup is widely available from Linux
+  distributions. Furthermore, it is well suited for incorporation into
+  installation media, rescue images and other environments in which
+  resources are tightly constrained.
+<p>Efforts are under way to prepare Speakup for inclusion in the
+  mainline Linux kernel. Currently, it resides in the <q>staging</q>
+  directory of the kernel, in which device drivers and other
+  components not yet ready for full integration are developed. Despite
+  this status, Speakup has been used intensively to perform desktop
+  computing and system administration tasks for many years, and, like
+  other projects described here, has a vibrant community of users.
+<p>Speakup Home
+  Page: <a href="http://www.inux-speakup.org/">http://www.inux-speakup.org/</a>
+<h3>Yasr</h3>
+<p>Yasr is a screen reader for Linux virtual consoles. Its principle
+  of operation is similar to that
+  of <a href="http://tmux.sourceforge.net/">Tmux</a>
+  and <a href="http://savannah.gnu.org/projects/screen">GNU
+  Screen</a>: Yasr allocates a pseudo-terminal and then invokes a
+  shell, for
+  example <a href="http://tiswww.case.edu/php/chet/bash/bashtop.html">Bash</a>.
+  All user interactions within the pseudo-terminal are accessible via
+  Yasr's speech interface. Yasr is typically invoked after the user
+  has logged into the operating system.
+<p>Yasr works with TTS software supported by Emacspeak speech servers
+  or by Speech Dispatcher. Certain hardware-based speech synthesizers,
+  connected via a serial interface, are supported directly. Yasr is
+  packaged by Debian.
+<p>Yasr Home Page: <a href="http://yasr.sourceforge.net/">http://yasr.sourceforge.net/</a>
+</body>
+</html>
